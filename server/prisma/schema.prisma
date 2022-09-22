@@ -31,3 +31,10 @@ model Ad {
 
   game Game @relation(fields: [gameId], references: [id])
 }
+
+model Streamer {
+  id      String @id @default(uuid())
+  name    String
+  picUrl  String
+  linkUrl String
+}

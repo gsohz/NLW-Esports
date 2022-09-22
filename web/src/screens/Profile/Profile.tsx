@@ -1,15 +1,28 @@
 import LogoImg from "../../assets/logo-nlw-esports.svg";
 import InfoBanner from "../../components/InfoBanner";
 import { CaretLeft } from "phosphor-react";
+import { useEffect, useState } from "react";
+import { Game } from "../Home/Home";
+import axios from "axios";
+
+export interface Streamer {
+  id: string;
+  name: string;
+  picUrl: string;
+  linkUrl: string;
+}
 
 function Profile() {
-  const imgs = [
-    "game-1.png",
-    "game-2.png",
-    "game-3.png",
-    "game-4.png",
-    "game-5.png",
-  ];
+  const [games, setGames] = useState<Game[]>([]);
+  const [streamers, setStreamers] = useState<Streamer[]>([]);
+
+  useEffect(() => {
+    axios("http://localhost:3000/games").then((res) => setGames(res.data));
+    axios("http://localhost:3000/streamers").then((res) =>
+      setStreamers(res.data)
+    );
+  }, []);
+
   return (
     <div className="max-w-[1344px] mx-auto flex flex-col gap-6 items-center my-8">
       <div className="z-0 flex flex-col items-center">
@@ -39,17 +52,17 @@ function Profile() {
         <InfoBanner
           title="Meus Jogos"
           subtitle="Os games que eu mais curto jogar!"
-          imgUrl={imgs}
+          games={games}
         />
         <InfoBanner
           title="Canais e streamers"
           subtitle="Lista de canais e transmissões que não perco!"
-          imgUrl={imgs}
+          streamers={streamers}
         />
         <InfoBanner
           title="Minhas redes"
           subtitle="Se conecte comigo agora mesmo!"
-          imgUrl={imgs}
+          games={games}
         />
       </div>
     </div>

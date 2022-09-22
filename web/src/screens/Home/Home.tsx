@@ -1,6 +1,6 @@
 import LogoImg from "../../assets/logo-nlw-esports.svg";
 
-import { GameBanner } from "../../components/GameBanner";
+import { GameBannerMain } from "../../components/GameBannerMain";
 import { CreateAdBanner } from "../../components/CreateAdBanner";
 import { useEffect, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
@@ -9,8 +9,9 @@ import axios from "axios";
 import { CreateAdModal } from "../../components/CreateAdModal";
 import "keen-slider/keen-slider.min.css";
 import { useKeenSlider } from "keen-slider/react";
+import { SliderMain } from "../../components/SliderMain";
 
-interface Game {
+export interface Game {
   id: string;
   title: string;
   bannerUrl: string;
@@ -22,26 +23,9 @@ interface Game {
 function Home() {
   const [games, setGames] = useState<Game[]>([]);
 
-  var sliderOptions = {
-    slides: {
-      perView: 6,
-      spacing: 30,
-    },
-  };
-
-  const [internalSliderRef, internalSlider] = useKeenSlider(sliderOptions);
-
-  useEffect(() => {
-    internalSlider.current?.update({
-      ...sliderOptions,
-    });
-  }, [internalSlider, sliderOptions]);
-
   useEffect(() => {
     axios("http://localhost:3000/games").then((res) => setGames(res.data));
   }, []);
-
-  var k = 0;
 
   return (
     <div className="max-w-[1344px] mx-auto flex flex-col items-center my-7">
@@ -64,25 +48,8 @@ function Home() {
         está aqui.
       </h1>
 
-      <div className="navigation-wrapper ml-7 mt-8">
-        <div ref={internalSliderRef} className="keen-slider">
-          {games.map((game) => {
-            k++;
-            return (
-              <div
-                key={k}
-                className={`keen-slider__slide number-slide${k} rounded-lg`}
-              >
-                <GameBanner
-                  key={game.id}
-                  bannerUrl={game.bannerUrl}
-                  title={game.title}
-                  adsCount={game._count.ads}
-                />
-              </div>
-            );
-          })}
-        </div>
+      <div className=" ml-7 mt-8">
+        <SliderMain games={games} />
       </div>
 
       <Dialog.Root>

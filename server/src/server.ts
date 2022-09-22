@@ -104,4 +104,14 @@ app.get("/ads/:id/discord", async (req, res) => {
   return res.json({ discord: ad.discord });
 });
 
+app.get("/streamers", async (req, res) => {
+  const streamers = await prisma.streamer.findMany({
+    orderBy: {
+      name: "asc",
+    },
+  });
+
+  return res.json(streamers);
+});
+
 app.listen(3000);
