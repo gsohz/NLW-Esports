@@ -1,6 +1,7 @@
 import { Game } from "../screens/Home/Home";
 import { Streamer } from "../screens/Profile/Profile";
-import { SliderSecondary } from "./SliderSecondary";
+import { SliderGamesSecondary } from "./SliderGamesSecondary";
+import { SliderStreamers } from "./SliderStreamers";
 
 export interface InfoBannerProps {
   title: string;
@@ -18,11 +19,17 @@ function InfoBanner({
 }: InfoBannerProps) {
   return (
     <div className="pt-1 bg-nlw-gradient self-stretch rounded-lg">
-      <div className="bg-[#2A2634] py-6 px-8 text-white rounded-lg w-[42.5em] shadow-lg shadow-black/25 overflow-x-hidden">
+      <div className="bg-[#2A2634] py-6 px-8 text-white rounded-lg  shadow-lg shadow-black/25 overflow-x-hidden">
         <strong className="font-black text-xl">{title}</strong>
         <span className="text-zinc-400 block">{subtitle}</span>
         <div className="mt-5">
-          <SliderSecondary games={games} streamers={streamers} />
+          {games ? (
+            <SliderGamesSecondary games={games} />
+          ) : streamers ? (
+            <SliderStreamers streamers={streamers} />
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </div>

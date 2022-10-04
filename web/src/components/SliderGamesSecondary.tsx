@@ -1,17 +1,21 @@
 import { useKeenSlider } from "keen-slider/react";
 import { useEffect } from "react";
 import { Game } from "../screens/Home/Home";
-import { GameBannerMain } from "./GameBannerMain";
+import { GameBannerSecondary } from "./GameBannerSecondary";
 
 interface Props {
   games: Game[];
 }
 
-export const SliderMain = (props: Props) => {
+export const SliderGamesSecondary = (props: Props) => {
   var sliderOptions = {
-    slides: {
-      perView: 6,
-      spacing: 30,
+    breakpoints: {
+      "(min-width: 200px)": {
+        slides: { perView: 2.5, spacing: 5 },
+      },
+      "(min-width: 1000px)": {
+        slides: { perView: 5.5, spacing: 10 },
+      },
     },
   };
 
@@ -28,14 +32,14 @@ export const SliderMain = (props: Props) => {
   return (
     <div className="navigation-wrapper">
       <div ref={internalSliderRef} className="keen-slider">
-        {props.games.map((game) => {
+        {props.games?.map((game) => {
           k++;
           return (
             <div
               key={k}
-              className={`keen-slider__slide number-slide${k} rounded-lg`}
+              className={`keen-slider__slide number-slide${k}"rounded-lg"`}
             >
-              <GameBannerMain
+              <GameBannerSecondary
                 key={game.id}
                 bannerUrl={game.bannerUrl}
                 title={game.title}

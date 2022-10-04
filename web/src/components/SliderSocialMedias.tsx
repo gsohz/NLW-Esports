@@ -11,9 +11,13 @@ interface Props {
 
 export const SliderSecondary = (props: Props) => {
   var sliderOptions = {
-    slides: {
-      perView: 4.5,
-      spacing: 10,
+    breakpoints: {
+      "(min-width: 200px)": {
+        slides: { perView: 4.5, spacing: 5 },
+      },
+      "(min-width: 1000px)": {
+        slides: { perView: 5.5, spacing: 10 },
+      },
     },
   };
 
@@ -50,7 +54,7 @@ export const SliderSecondary = (props: Props) => {
           : props.streamers?.map((streamer) => {
               k++;
               return (
-                <div key={k} className={`keen-slider__slide number-slide${k} `}>
+                <div key={k} className={`keen-slider__slide number-slide${k}`}>
                   <div className="flex flex-col justify-center items-center">
                     <GameBannerSecondary
                       title={streamer.name}
