@@ -66,7 +66,6 @@ function Profile() {
           <InfoBanner
             title="Minhas redes"
             subtitle="Se conecte comigo agora mesmo!"
-            games={games}
           />
         </div>
       </div>

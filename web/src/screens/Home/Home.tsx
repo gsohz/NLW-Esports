@@ -9,6 +9,7 @@ import axios from "axios";
 import { CreateAdModal } from "../../components/CreateAdModal";
 
 import { SliderMain } from "../../components/SliderGamesMain";
+import { DuoCardModal } from "../../components/DuoCardModal";
 
 export interface Game {
   id: string;
@@ -21,6 +22,7 @@ export interface Game {
 
 function Home() {
   const [games, setGames] = useState<Game[]>([]);
+  const [selectedGame, setSelectedGame] = useState<Game>();
 
   useEffect(() => {
     axios("http://localhost:3000/games").then((res) => setGames(res.data));
@@ -51,8 +53,17 @@ function Home() {
         </div>
 
         <div className="ml-7 mt-8">
-          <SliderMain games={games} />
+          <SliderMain
+            games={games}
+            handleClick={(game: Game) => setSelectedGame(game)}
+          />
         </div>
+        <Dialog.Root
+          open={!!selectedGame?.id}
+          onOpenChange={() => setSelectedGame(undefined)}
+        >
+          {selectedGame !== undefined && <DuoCardModal game={selectedGame} />}
+        </Dialog.Root>
 
         <Dialog.Root>
           <CreateAdBanner />

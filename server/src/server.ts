@@ -36,6 +36,7 @@ app.get("/games/:id/ads", async (req, res) => {
       yearsPlaying: true,
       hourStart: true,
       hourEnd: true,
+      discord: true,
     },
     where: {
       gameId,

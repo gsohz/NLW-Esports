@@ -6,6 +6,7 @@ import { GameBannerMain } from "./GameBannerMain";
 
 interface Props {
   games: Game[];
+  handleClick: (game: Game) => void;
 }
 
 export const SliderMain = (props: Props) => {
@@ -51,6 +52,7 @@ export const SliderMain = (props: Props) => {
             <div
               key={k}
               className={`keen-slider__slide number-slide${k} rounded-lg`}
+              onClick={() => props.handleClick(game)}
             >
               <GameBannerMain
                 key={game.id}
