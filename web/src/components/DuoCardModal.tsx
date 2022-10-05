@@ -36,7 +36,7 @@ export const DuoCardModal = ({ game }: Props) => {
         slides: { perView: 1.5, spacing: 20 },
       },
       "(min-width: 1000px)": {
-        slides: { perView: 2.5, spacing: 25 },
+        slides: { perView: 2.5, spacing: 20 },
       },
     },
   };
@@ -50,7 +50,6 @@ export const DuoCardModal = ({ game }: Props) => {
   }, [internalSlider, sliderOptions]);
 
   var k = 0;
-  ads.map((ad) => console.log(ad.name));
   return (
     <Dialog.Portal>
       <Dialog.Overlay className="bg-black/60 inset-0 fixed" />
@@ -66,18 +65,20 @@ export const DuoCardModal = ({ game }: Props) => {
 
           <div className="bg-lvlup bg-cover bg-no-repeat shadow-black shadow-sm">
             <div className="flex bg-game-gradient pb-6">
-              <div className="flex justify-center items-center  ml-12 mt-4 mr-5 w-2/6">
+              <div className="flex justify-center items-center ml-12 mt-4 mr-5 w-2/6  sm:invisible md:relative sm:absolute md:visible">
                 <img
                   src={game.bannerUrl}
                   alt=""
-                  className="md:w-52 lg:w-64 xl:w-72 rounded-xl shadow-black/70 shadow-lg transform -skew-y-2  sm:invisible md:relative sm:absolute md:visible "
+                  className="md:w-52 lg:w-64 xl:w-72 rounded-xl shadow-black/70 shadow-lg transform -skew-y-2  "
                 />
               </div>
 
-              <div className="w-4/6">
-                <div className="overflow-hidden md:ml-14 mt-7">
+              <div className=" sm:w-full md:w-4/6">
+                <div className="overflow-hidden  md:ml-14 mt-7">
                   {game._count.ads === 0 ? (
-                    <div>Crie um anúncio</div>
+                    <div className="flex h-[14em] justify-center items-center text-2xl text-zinc-500">
+                      Nenhum anúncio por aqui...
+                    </div>
                   ) : (
                     <div className="navigation-wrapper sm:mx-6 md:mx-4 lg:mx-2 ">
                       <div ref={internalSliderRef} className="keen-slider">
@@ -86,9 +87,9 @@ export const DuoCardModal = ({ game }: Props) => {
                           return (
                             <div
                               key={k}
-                              className={`keen-slider__slide number-slide${k} rounded-lg `}
+                              className={`keen-slider__slide number-slide${k} rounded-lg`}
                             >
-                              <div className="w-72">
+                              <div className="">
                                 <DuoCardBanner ad={ad} />
                               </div>
                             </div>

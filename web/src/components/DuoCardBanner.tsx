@@ -7,11 +7,11 @@ interface Props {
 export default function DuoCardBanner({ ad }: Props) {
   var k = 0;
   return (
-    <div className=" bg-[#2A2634] bg-galaxy w-72">
-      <div className="flex flex-col w-full px-12 py-10">
+    <div className=" bg-[#2A2634] bg-galaxy w-72 rounded">
+      <div className="flex flex-col px-12 py-10">
         <div className="flex flex-col">
           <span className="text-sm text-zinc-500">Nome </span>
-          <strong>{ad.name}</strong>
+          <strong className="truncate">{ad.name}</strong>
         </div>
 
         <div className="flex flex-col">
