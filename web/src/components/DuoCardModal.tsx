@@ -4,6 +4,7 @@ import { useKeenSlider } from "keen-slider/react";
 import { MagnifyingGlassPlus } from "phosphor-react";
 import { useEffect, useState } from "react";
 import { Game } from "../screens/Home/Home";
+import { CreateAdModal } from "./CreateAdModal";
 import DuoCardBanner from "./DuoCardBanner";
 
 interface Props {
@@ -111,15 +112,20 @@ export const DuoCardModal = ({ game }: Props) => {
             <Dialog.Close className="bg-zinc-500 px-5 h-12 rounded-md font-semibold hover:bg-zinc-600 sm:text-[12px] md:text-base">
               Cancelar
             </Dialog.Close>
-            <button
-              type="submit"
-              className="bg-violet-500 px-5 h-12 rounded-md font-semibold flex items-center gap-3 hover:bg-violet-600 "
-            >
-              <MagnifyingGlassPlus size={24} />
-              <div className="sm:text-[12px] md:text-base">
-                Publicar anúncio
-              </div>
-            </button>
+            <Dialog.Root>
+              <Dialog.Trigger>
+                <button
+                  type="submit"
+                  className="bg-violet-500 px-5 h-12 rounded-md font-semibold flex items-center gap-3 hover:bg-violet-600 "
+                >
+                  <MagnifyingGlassPlus size={24} />
+                  <div className="sm:text-[12px] md:text-base">
+                    Publicar anúncio
+                  </div>
+                </button>
+              </Dialog.Trigger>
+              <CreateAdModal addGameTitle={game.title} addGameId={game.id} />
+            </Dialog.Root>
           </footer>
         </div>
       </Dialog.Content>

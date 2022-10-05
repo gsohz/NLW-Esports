@@ -13,7 +13,12 @@ export interface GameProps {
   title: string;
 }
 
-export function CreateAdModal() {
+interface Props {
+  addGameId?: string;
+  addGameTitle?: string;
+}
+
+export function CreateAdModal({ addGameId, addGameTitle }: Props) {
   const [games, setGames] = useState<GameProps[]>([]);
   const [weekDays, setWeekDays] = useState<string[]>([]);
   const [useVoiceChannel, setUseVoiceChannel] = useState(false);
@@ -33,6 +38,10 @@ export function CreateAdModal() {
       return;
     }
 
+    if (addGameId && addGameTitle) {
+      data.game = addGameId;
+    }
+
     try {
       await axios.post(`http://localhost:3000/games/${data.game}/ads`, {
         name: data.name,
@@ -44,6 +53,7 @@ export function CreateAdModal() {
         useVoiceChannel: useVoiceChannel,
       });
       alert("Anúncio criado com sucesso");
+      window.location.reload();
     } catch (err) {
       console.log(err);
       alert("Erro ao criar o anúncio");
@@ -71,27 +81,39 @@ export function CreateAdModal() {
                 id="game"
                 className={`bg-zinc-900 py-3 px-4 text-sm ${
                   selectedGame === true ? "text-white" : "text-zinc-500"
-                } flex items-center gap-5 justify-between rounded`}
+                } flex items-center gap-5 justify-between rounded ${
+                  addGameTitle && "cursor-default"
+                }`}
               >
-                <Select.Value placeholder="Selecione o game que deseja jogar" />
-                <Select.Icon asChild>
-                  <CaretDown size={24} className="text-zinc-500" />
-                </Select.Icon>
+                <Select.Value
+                  placeholder={
+                    addGameTitle
+                      ? addGameTitle
+                      : "Selecione o game que deseja jogar"
+                  }
+                />
+                {!addGameTitle && (
+                  <Select.Icon asChild>
+                    <CaretDown size={24} className="text-zinc-500" />
+                  </Select.Icon>
+                )}
               </Select.Trigger>
 
-              <Select.Content className="bg-zinc-700/95 rounded w-full">
-                <Select.ScrollUpButton>
-                  <CaretUp />
-                </Select.ScrollUpButton>
+              {!addGameTitle && (
+                <Select.Content className="bg-zinc-700/95 rounded w-full">
+                  <Select.ScrollUpButton>
+                    <CaretUp />
+                  </Select.ScrollUpButton>
 
-                {games.map((game) => {
-                  return <Item key={game.id} game={game} />;
-                })}
+                  {games.map((game) => {
+                    return <Item key={game.id} game={game} />;
+                  })}
 
-                <Select.ScrollDownButton>
-                  <CaretDown />
-                </Select.ScrollDownButton>
-              </Select.Content>
+                  <Select.ScrollDownButton>
+                    <CaretDown />
+                  </Select.ScrollDownButton>
+                </Select.Content>
+              )}
             </Select.Root>
           </div>
 
